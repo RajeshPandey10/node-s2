@@ -40,7 +40,7 @@ const personSchema = new Schema({
   },
 });
 
-personSchema.pre("save", async function () {
+personSchema.pre("save", async function () { //alwaye use the normal function to use the this operator dont use the arrow function
   const person = this;
 
   // Hash only if password has been modified (or is new)
