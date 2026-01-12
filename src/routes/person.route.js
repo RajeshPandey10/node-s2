@@ -1,5 +1,6 @@
 import express from "express";
 import Person from "../models/person.model.js";
+import logRequest from "../middlewares/logRequest.middleware.js";
 const router =express.Router()
 
 router.post("/", async (req, res) => {

@@ -3,10 +3,16 @@ import bodyParser from "body-parser"; //automatically parse the json data from r
 import dotenv from "dotenv";
 import { db } from "./database/db.js";
 import personRoutes from '../src/routes/person.route.js'
+import logRequest from "./middlewares/logRequest.middleware.js";
+import passport from "./utils/passport.js";
 dotenv.config();
-const app = express();
-app.use(bodyParser.json()); //as we are sending data in json format
 const port = process.env.PORT;
+const app = express();
+
+//middlewares
+app.use(bodyParser.json()); //as we are sending data in json format
+// app.use(logRequest)
+app.use(passport.initialize())
 
 app.get("/", (req, res) => {
   res.send(
@@ -24,7 +30,7 @@ app.get("/samosa", (req, res) => {
 });
 
 //person api
-app.use('/person',personRoutes)
+app.use('/person',passport.authenticate('local',{session:false}),personRoutes)
 
 
 app.listen(port, () => {
