@@ -1,42 +1,38 @@
 import express from "express"
-
+import dotenv from "dotenv"
+dotenv.config()
 const app = express()
+const port =process.env.PORT
 
+app.use(express.json())
 
 app.get('/',(req,res)=>{
-res.send("<h1>welcome to our resturent . what you gonna have today?</h1>")
+    
+    const person ={
+        name:"dev",
+        address:"itahari",
+        age:33
+    }
+    //object destructering
+
+res.json({response:person})
+
+
 })
 
-app.get("/samosa",(req,res)=>{
-    res.send("<h1>here is your samosa . enjoy your meal</h1>")
+
+app.get('/age',(req,res)=>{
+     const person ={
+        name:"dev",
+        address:"itahari",
+        age:50
+    }
+    const {age,name} =person
+    res.json({peron:age,hello:name})
 })
 
-app.get("/tea",(req,res)=>{
-    res.send("this is our last cup")
-})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(8000,()=>{
-    console.log("our waiter is on working mode..server is running on port 8000")
+app.listen(port,()=>{
+    console.log(`our waiter is on working mode..server is running on port ${port}`)
 })
